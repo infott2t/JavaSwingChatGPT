@@ -26,12 +26,30 @@ public class SwingUI extends JFrame {
     private JTextArea textArea;
     private JScrollPane scrollPane;
 
+    private JPanel labelPanel;
+    private JLabel modelLabel;
+    private JLabel modelValueLabel;
+    private JLabel usageLabel;
+    private JLabel usageValueLabel;
+    private JLabel promptTkLabel;
+    private JLabel promptTkValueLabel;
+    private JLabel completionTkLabel;
+    private JLabel completionTkValueLabel;
+    private JLabel totalTkLabel;
+    private JLabel totalTkValueLabel;
+
     private List<String> systemStr = new ArrayList<>();
     private List<String> userStr = new ArrayList<>();
     private List<String> assistantStr = new ArrayList<>();
 
-    private static final String API_KEY = "openai API KEY";
+    private static final String API_KEY = "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";
     private OkHttpClient client;
+
+    private static int promptTokens;
+    private static int completionTokens;
+    private static int totalTokens;
+
+    private String modelStr;
 
     public SwingUI() {
         setTitle("Swing ChatGpt");
@@ -44,6 +62,7 @@ public class SwingUI extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
 
         textField = new JTextField(20);
+        
         uploadButton = new JButton("File");
         sendButton = new JButton("Enter");
 
@@ -68,6 +87,34 @@ public class SwingUI extends JFrame {
         textArea.setLineWrap(true);
         add(topPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
+
+        modelStr = "gpt-3.5-turbo";
+
+         labelPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+         modelLabel = new JLabel("model:");
+         modelValueLabel = new JLabel(modelStr);
+         usageLabel = new JLabel("      |");
+         
+         promptTkLabel = new JLabel("prompt:");
+         promptTkValueLabel = new JLabel(promptTokens == 0 ? "--" : String.valueOf(promptTokens));
+         completionTkLabel = new JLabel("completion:");
+         completionTkValueLabel = new JLabel(completionTokens == 0 ? "--" : String.valueOf(completionTokens));
+         totalTkLabel = new JLabel("total:");
+         totalTkValueLabel = new JLabel(totalTokens == 0 ? "--" : String.valueOf(totalTokens));
+         usageValueLabel = new JLabel("(tokens)");
+        labelPanel.add(modelLabel);
+        labelPanel.add(modelValueLabel);
+        labelPanel.add(usageLabel);
+       
+        labelPanel.add(promptTkLabel);
+        labelPanel.add(promptTkValueLabel);
+        labelPanel.add(completionTkLabel);
+        labelPanel.add(completionTkValueLabel);
+        labelPanel.add(totalTkLabel);
+        labelPanel.add(totalTkValueLabel); 
+         labelPanel.add(usageValueLabel);
+
+        add(labelPanel, BorderLayout.SOUTH);
 
         sendButton.addActionListener(new ActionListener() {
             @Override
@@ -96,6 +143,9 @@ public class SwingUI extends JFrame {
 
         setBounds(100, 100, 450, 300);
         setVisible(true);
+
+        new UsageScreen();
+        textField.requestFocus();
     }
 
     public String sendQuestionToOpenAI(String question) throws IOException, NullPointerException {
@@ -151,7 +201,7 @@ public class SwingUI extends JFrame {
 
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         String json = "{"
-                  + "\"model\": \"gpt-3.5-turbo\","
+                  + "\"model\": \""+modelStr+"\","
                 + "\"messages\": ["
                 + messages.toString() 
                 + "]"
@@ -177,9 +227,30 @@ public class SwingUI extends JFrame {
             JsonObject choice = choices.get(0).getAsJsonObject();
             JsonObject message = choice.getAsJsonObject("message");
              content = message.get("content").getAsString();
+             JsonObject usage = obj.getAsJsonObject("usage");
+            promptTokens = usage.get("prompt_tokens").getAsInt();
+            promptTkValueLabel.setText(Integer.toString(promptTokens));
+            completionTokens = usage.get("completion_tokens").getAsInt();
+            completionTkValueLabel.setText(Integer.toString(completionTokens));
+            totalTokens = usage.get("total_tokens").getAsInt();
+            totalTkValueLabel.setText(Integer.toString(totalTokens));
+            Utilv1.times++;
+            Utilv1.completionv = completionTokens;
+            Utilv1.promptv = promptTokens;
+            Utilv1.totalv = totalTokens;
+            if(Utilv1.contents == null){
+                Utilv1.contents = ("times:\tcompletion\tprompt\ttotal\n");
+                 
+                Utilv1.setContents(Utilv1.contents + Utilv1.times + "\t" + Utilv1.completionv + "\t" + Utilv1.promptv + "\t" + Utilv1.totalv + "\n");
+            }else{
+                 
+                Utilv1.setContents(Utilv1.contents + Utilv1.times + "\t" + Utilv1.completionv + "\t" + Utilv1.promptv + "\t" + Utilv1.totalv + "\n");
+            }  
             //userStr.add(question);
                assistantStr.add(content);
              System.out.println(assistantStr.size() +" assi : "+ assistantStr.get(assistantStr.size()-1)); 
+             System.out.println();
+             System.out.println(responseBody);
          
             }else{
                  //userStr.add(question);
@@ -191,6 +262,7 @@ public class SwingUI extends JFrame {
             }
             return content+"\n";
         }
+
        
     }
 
@@ -199,3 +271,9 @@ public class SwingUI extends JFrame {
         new SwingUI();
     }
 }
+
+/*
+model,  
+https://platform.openai.com/account/rate-limits
+*/
+ 
