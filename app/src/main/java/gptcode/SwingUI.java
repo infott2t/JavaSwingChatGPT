@@ -29,7 +29,7 @@ public class SwingUI extends JFrame {
     private List<String> systemStr = new ArrayList<>();
     private List<String> userStr = new ArrayList<>();
 
-    private static final String API_KEY = "OpenAI API KEY";
+    private static final String API_KEY = "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";
     private OkHttpClient client;
 
     public SwingUI() {
@@ -87,23 +87,24 @@ public class SwingUI extends JFrame {
                 sendButton.doClick();
             }
         });
-
+         client = new OkHttpClient.Builder()
+    .connectTimeout(120, TimeUnit.SECONDS)
+    .writeTimeout(120, TimeUnit.SECONDS)
+    .readTimeout(120, TimeUnit.SECONDS)
+    .build();
 
         setBounds(100, 100, 450, 300);
         setVisible(true);
     }
 
     public String sendQuestionToOpenAI(String question) throws IOException, NullPointerException {
-         client = new OkHttpClient.Builder()
-    .connectTimeout(30, TimeUnit.SECONDS)
-    .writeTimeout(30, TimeUnit.SECONDS)
-    .readTimeout(30, TimeUnit.SECONDS)
-    .build();
+
         
         if(systemStr ==null || systemStr.size()==0){
             systemStr.add("You are a helpful assistant.");
+            userStr.add(question);
         }
-        userStr.add(question);
+        
         
         StringBuilder messages = new StringBuilder();
         for(int i=0; i<systemStr.size(); i++){
@@ -119,9 +120,9 @@ public class SwingUI extends JFrame {
 
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         String json = "{"
-                + "\"model\": \"gpt-3.5-turbo\","
+                  + "\"model\": \"gpt-3.5-turbo-16k\","
                 + "\"messages\": ["
-                + messages.toString()
+                + messages.toString() 
                 + "]"
                 + "}";
 
@@ -139,12 +140,22 @@ public class SwingUI extends JFrame {
               JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(responseBody);
             JsonObject obj = element.getAsJsonObject();
-            
+            String content = null;
+            if( obj.getAsJsonArray("choices")!=null){
             JsonArray choices = obj.getAsJsonArray("choices");
             JsonObject choice = choices.get(0).getAsJsonObject();
             JsonObject message = choice.getAsJsonObject("message");
-            String content = message.get("content").getAsString();
+             content = message.get("content").getAsString();
+            userStr.add(question);
             systemStr.add(content);
+            }else{
+                 //userStr.add(question);
+            //systemStr.add("no response");
+            System.out.println("no response");
+            }
+            if(content ==null){
+                content = "no response";
+            }
             return content+"\n";
         }
        
