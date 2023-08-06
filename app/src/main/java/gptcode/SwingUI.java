@@ -42,7 +42,7 @@ public class SwingUI extends JFrame {
     private List<String> userStr = new ArrayList<>();
     private List<String> assistantStr = new ArrayList<>();
 
-    private static final String API_KEY = "";
+    private static final String API_KEY = "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";
     private OkHttpClient client;
 
     private static int promptTokens;
@@ -180,7 +180,7 @@ public class SwingUI extends JFrame {
             }
            
          
-            System.out.println(i+" assidd : " +assistantStr.get(i)+" \n");
+            System.out.println(i+" assi : " +assistantStr.get(i)+" \n");
             System.out.println(i+ " user : " +userStr.get(i)+"\n");
             
         }
