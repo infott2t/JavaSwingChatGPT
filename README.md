@@ -3,12 +3,14 @@ Java Swing으로 ChatGPT API연결해서 사용하는 프로그램입니다.
 <p>
 만든 이유. 웹상에서는 프로그래밍 코드입력을 많이 할수가 없어서 만드는 군요. 아직, FileUpload구현은 하지 않았습니다. 아마 스트링 파일로 전송이 될까... 생각하는군요.
 </p>
- 
+
+ ![capt](https://github.com/infott2t/JavaSwingChatGpt/assets/25080178/fab580d0-abab-4088-8036-ac91c30b04fa)
+
+ <p align="center">
+  
+</p>
  
 
-<p align="center">
-  <img src="https://github.com/infott2t/JavaSwingChatGpt/assets/25080178/a5c707e3-7fa5-4714-972e-440d1b3a25ca">
-</p>
 
 
 <h2>또, 요금이 발생하므로 주의해주세요.</h2>
@@ -25,6 +27,44 @@ SwingUI.java파일의 32번째줄에 OpenAI API KEY를 적습니다.
 122번째 줄에, 모델 셋팅을 바꿀 수 있습니다. 현재는 작은 모델인 gpt-3.5-turbo로 설정해놨습니다.
 
 아직 파일업로드는 구현하지 않았고, timeout버그가 있는 것 같아요.
+</p>
+
+ <h2>접속이 빨리 끊기는 이유는 저도 잘 모르지만 이런 설명을 해주네요.</h2>
+ <h3>제가 잘못 코드를 짠것일 수도 있구요. 모델을 큰것을 쓰거나... 잘 채팅이 될때도 있고, 안될때도 있는 것 같구요.</h3>
+ <h3>아직 저도 원인을 찾고 있습니다.</h3>
+ <p>
+  "usage": {
+    "prompt_tokens": 89,
+    "completion_tokens": 319,
+    "total_tokens": 408
+  }
+}
+
+
+
+
+Saved Data start--------------------------------------------------------------------------
+0 assidd :
+
+0 user : 안녕하세요.
+
+1 assidd : 안녕하세요! 도와드릴게 있나요?
+
+1 user : 안녕하세요.
+
+2 assidd : 안녕하세요! 토큰은 OpenAI의 GPT 모델에서 텍스트를 처리하는 단위입니다. 토큰의 개수는 모델에 입력된 텍스트의 양과 관련이 있습니다.
+
+- prompt_tokens: prompt_tokens은 요청한 작업의 시작 부분에 사용되는 토큰의 수입니다. GPT-3 모델의 prompt_tokens 최대값은 4096입니다.
+
+- completion_tokens: completion_tokens은 모델의 답변 부분에 사용되는 토큰의 수입니다. 이는 요청의 최대 길이로 제한될 수 있습니다.
+
+- total_tokens: total_tokens은 prompt_tokens과 completion_tokens을 합한 값으로, 요청에 사용된 총 토큰의 수입니다. GPT-3는 4096개의 토큰 이상을 처리할 수 없으므로 total_tokens는 반드시 이 제한 내에 있어야 합니다.
+
+토큰 수는 API 요청 시 제한적으로 사용되며, 총 토큰 수가 많을수록 처리 시간이 오래 걸릴 수 있습니다. 따라서 작업에 필요한 토큰 수를 최적화하는 것이 중요합니다.
+
+2 user : 토큰에 대해 알고 싶습니다. usage항복에 prompt_tokens, completion_tokens, total_tokens에 대해 알려주세요.
+
+Saved Data end -----------------------------------------------------------------------
 </p>
 <br/><br/><br/>
 기부는 하실 분은 여기에 해주세요. <br/>
