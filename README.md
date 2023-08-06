@@ -4,8 +4,12 @@ Java Swing으로 ChatGPT API연결해서 사용하는 프로그램입니다.
 만든 이유. 웹상에서는 프로그래밍 코드입력을 많이 할수가 없어서 만드는 군요. 아직, FileUpload구현은 하지 않았습니다. 아마 스트링 파일로 전송이 될까... 생각하는군요.
 </p>
 
- ![capt](https://github.com/infott2t/JavaSwingChatGpt/assets/25080178/fab580d0-abab-4088-8036-ac91c30b04fa)
+![screen](https://github.com/infott2t/JavaSwingChatGpt/assets/25080178/932613f9-81bf-485d-9d74-84b85c6da442)
+![screen02](https://github.com/infott2t/JavaSwingChatGpt/assets/25080178/2c40490b-9fe7-4803-94fd-dc5d048bcb1b)
 
+
+
+ 
  <p align="center">
   
 </p>
