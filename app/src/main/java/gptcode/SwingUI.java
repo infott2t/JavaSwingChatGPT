@@ -29,7 +29,7 @@ public class SwingUI extends JFrame {
     private List<String> systemStr = new ArrayList<>();
     private List<String> userStr = new ArrayList<>();
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
     private OkHttpClient client;
 
     public SwingUI() {
