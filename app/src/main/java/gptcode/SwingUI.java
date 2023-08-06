@@ -29,7 +29,7 @@ public class SwingUI extends JFrame {
     private List<String> systemStr = new ArrayList<>();
     private List<String> userStr = new ArrayList<>();
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "OPEN AI API KEY";
     private OkHttpClient client;
 
     public SwingUI() {
@@ -120,7 +120,7 @@ public class SwingUI extends JFrame {
 
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         String json = "{"
-                  + "\"model\": \"gpt-3.5-turbo-16k\","
+                  + "\"model\": \"gpt-3.5-turbo\","
                 + "\"messages\": ["
                 + messages.toString() 
                 + "]"
