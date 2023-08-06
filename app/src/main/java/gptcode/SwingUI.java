@@ -28,8 +28,9 @@ public class SwingUI extends JFrame {
 
     private List<String> systemStr = new ArrayList<>();
     private List<String> userStr = new ArrayList<>();
+    private List<String> assistantStr = new ArrayList<>();
 
-    private static final String API_KEY = "OPEN AI API KEY";
+    private static final String API_KEY = "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";
     private OkHttpClient client;
 
     public SwingUI() {
@@ -98,21 +99,51 @@ public class SwingUI extends JFrame {
     }
 
     public String sendQuestionToOpenAI(String question) throws IOException, NullPointerException {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+    System.out.println("Saved Data start--------------------------------------------------------------------------");
+         StringBuilder messages = new StringBuilder();
 
-        
         if(systemStr ==null || systemStr.size()==0){
             systemStr.add("You are a helpful assistant.");
+             messages.append("{\"role\": \"system\", \"content\": \""+systemStr.get(0)+"\"},");
             userStr.add(question);
+            assistantStr.add("");
+            messages.append("{\"role\": \"user\", \"content\": \""+userStr.get(0)+"\"},");
+             messages.append("{\"role\": \"assistant\", \"content\": \""+assistantStr.get(0)+"\"},");
+        }else{
+           
+         
         }
         
         
-        StringBuilder messages = new StringBuilder();
-        for(int i=0; i<systemStr.size(); i++){
-            messages.append("{\"role\": \"system\", \"content\": \""+systemStr.get(i)+"\"},");
+       
+        for(int i=0; i<userStr.size(); i++){
+            if(assistantStr ==null || assistantStr.size()==0){
+                
+            }else{
+               
+            messages.append("{\"role\": \"assistant\", \"content\": \""+assistantStr.get(i)+"\"},");
+           
             messages.append("{\"role\": \"user\", \"content\": \""+userStr.get(i)+"\"},");
-            System.out.println(systemStr.get(i)+" "+ i+ " \n");
-            System.out.println(userStr.get(i)+" "+ i + "\n");
+            }
+           
+         
+            System.out.println(i+" assidd : " +assistantStr.get(i)+" \n");
+            System.out.println(i+ " user : " +userStr.get(i)+"\n");
+            
         }
+        userStr.add(question);
+         messages.append("{\"role\": \"user\", \"content\": \""+userStr.get(userStr.size()-1)+"\"},");
+        System.out.println("Saved Data end -----------------------------------------------------------------------");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("now    :" + question);
+                System.out.println();
+        System.out.println();
+        System.out.println("waiting....\n");
         // 마지막 쉼표 제거
         if (messages.length() > 0) {
             messages.deleteCharAt(messages.length() - 1);
@@ -146,8 +177,10 @@ public class SwingUI extends JFrame {
             JsonObject choice = choices.get(0).getAsJsonObject();
             JsonObject message = choice.getAsJsonObject("message");
              content = message.get("content").getAsString();
-            userStr.add(question);
-            systemStr.add(content);
+            //userStr.add(question);
+               assistantStr.add(content);
+             System.out.println(assistantStr.size() +" assi : "+ assistantStr.get(assistantStr.size()-1)); 
+         
             }else{
                  //userStr.add(question);
             //systemStr.add("no response");
