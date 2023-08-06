@@ -5,8 +5,9 @@ Java Swing으로 ChatGPT API연결해서 사용하는 프로그램입니다.
 </p>
  
  
+
 <p align="center">
-  <img src="https://github.com/infott2t/JavaSwingChatGPT/assets/25080178/daf3d510-60ec-4733-8a3d-7a8ea0c306e6">
+  <img src="https://github.com/infott2t/JavaSwingChatGpt/assets/25080178/a5c707e3-7fa5-4714-972e-440d1b3a25ca">
 </p>
 
 
