@@ -30,7 +30,7 @@ public class SwingUI extends JFrame {
     private List<String> userStr = new ArrayList<>();
     private List<String> assistantStr = new ArrayList<>();
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "openai API KEY";
     private OkHttpClient client;
 
     public SwingUI() {
