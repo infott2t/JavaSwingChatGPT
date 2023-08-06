@@ -42,7 +42,7 @@ public class SwingUI extends JFrame {
     private List<String> userStr = new ArrayList<>();
     private List<String> assistantStr = new ArrayList<>();
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "OEPNAI_API_KEY";
     private OkHttpClient client;
 
     private static int promptTokens;
